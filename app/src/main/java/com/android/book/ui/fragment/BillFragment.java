@@ -1,5 +1,6 @@
 package com.android.book.ui.fragment;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class BillFragment extends Fragment {
 
 
     public BillFragment() {
+
         // Required empty public constructor
     }
 

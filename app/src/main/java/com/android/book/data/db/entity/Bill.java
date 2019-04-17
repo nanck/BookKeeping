@@ -18,7 +18,7 @@ public class Bill {
 
     //金额
     @ColumnInfo(name = "amount")
-    private BigDecimal amcount;
+    private double amcount;
 
     //记录时间
     @ColumnInfo(name = "add_time")
@@ -52,11 +52,11 @@ public class Bill {
         this.id = id;
     }
 
-    public BigDecimal getAmcount() {
+    public double getAmcount() {
         return amcount;
     }
 
-    public void setAmcount(BigDecimal amcount) {
+    public void setAmcount(double amcount) {
         this.amcount = amcount;
     }
 
@@ -82,6 +82,22 @@ public class Bill {
 
     public void setShoppingType(int shoppingType) {
         this.shoppingType = shoppingType;
+    }
+
+    public int getBillType() {
+        return billType;
+    }
+
+    public void setBillType(int billType) {
+        this.billType = billType;
+    }
+
+    public int getIncomeType() {
+        return incomeType;
+    }
+
+    public void setIncomeType(int incomeType) {
+        this.incomeType = incomeType;
     }
 
     public String getDesc() {

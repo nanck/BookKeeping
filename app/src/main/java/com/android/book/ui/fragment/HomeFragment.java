@@ -66,8 +66,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView textView = view.findViewById(R.id.textView);
-        textView.setText("home");
 
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
 

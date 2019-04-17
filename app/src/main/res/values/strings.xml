@@ -5,4 +5,6 @@
     <string name="nav_home">首页</string>
     <string name="nav_bill">账单</string>
     <string name="nav_my">我的</string>
+    <string name="month_amount">本月已花</string>
+    <string name="month_shouru">本月收入</string>
 </resources>
