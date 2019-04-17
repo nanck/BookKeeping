@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">简单记账本</string>
+    <string name="logo_str">Bookkeeping</string>
+    
+    <string name="nav_home">首页</string>
+    <string name="nav_bill">账单</string>
+    <string name="nav_my">我的</string>
+</resources>
