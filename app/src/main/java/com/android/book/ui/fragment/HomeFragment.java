@@ -2,8 +2,10 @@ package com.android.book.ui.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
+import com.android.book.ui.NewBillActivity;
 import com.android.book.viewmodel.BillViewModel;
 
 import java.util.List;
@@ -67,6 +70,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        FloatingActionButton fab_add = view.findViewById(R.id.fab_add);
+
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewBillActivity.class);
+                startActivity(intent);
+            }
+        });
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
 
         billViewModel.getBills().observe(this, new Observer<List<Bill>>() {
@@ -75,6 +87,7 @@ public class HomeFragment extends Fragment {
                 //update recyclerview
             }
         });
+
 
         return view;
     }

@@ -4,8 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.math.BigDecimal;
-
 /**
  * Created by sxshi on 2019-4-17.
  * 新增一笔消费
@@ -20,9 +18,9 @@ public class Bill {
     @ColumnInfo(name = "amount")
     private double amcount;
 
-    //记录时间
+    //记录时间 yyyy-MM-dd HH:mm:ss
     @ColumnInfo(name = "add_time")
-    private long addTtime;
+    private String addTtime;
 
     //交易方式{0支付宝，1微信，3刷卡，4现金}
     @ColumnInfo(name = "channel_type")
@@ -60,11 +58,11 @@ public class Bill {
         this.amcount = amcount;
     }
 
-    public long getAddTtime() {
+    public String getAddTtime() {
         return addTtime;
     }
 
-    public void setAddTtime(long addTtime) {
+    public void setAddTtime(String addTtime) {
         this.addTtime = addTtime;
     }
 

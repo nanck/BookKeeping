@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CURRENT_FRAGMENT = "currentFragment";
     private static final String TAG = "ssx";
     private BottomNavigationView nav_bottom;
+    HomeFragment homeFragment = new HomeFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
             nav_bottom.setSelectedItemId(selectItemId);
         } else {
             Log.d(TAG, "new fragment: ");
-            HomeFragment homeFragment = new HomeFragment();
             showAndHideFragment(homeFragment);
         }
     }
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_home:
-                    HomeFragment homeFragment = new HomeFragment();
                     showAndHideFragment(homeFragment);
                     return true;
                 case R.id.action_bill:
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     protected void showAndHideFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fl_content, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
