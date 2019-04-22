@@ -7,6 +7,17 @@
     <string name="nav_my">我的</string>
     <string name="month_amount">本月已花</string>
     <string name="month_shouru">本月收入</string>
-
     <string name="addbill">记一笔</string>
+    <string name="desc">描述</string>
+    <string name="type">类型</string>
+    <string name="payType">付款方式</string>
+    <string name="amount">金额</string>
+    <string name="finish">完成</string>
+    <string name="income">收入</string>
+    <string name="expenses">支出</string>
+    <string name="hint_desc">输入消费描述</string>
+    <string name="hint_type">请选择消费类型</string>
+    <string name="hint_amount">0.00</string>
+    <string name="hint_paytype">请选择付款方式</string>
+    <string name="add">新增</string>
 </resources>
