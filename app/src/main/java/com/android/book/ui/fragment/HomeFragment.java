@@ -7,13 +7,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.ui.NewBillActivity;
+import com.android.book.ui.adapter.BillListAdapter;
+import com.android.book.utilitles.RecyclerViewDivider;
 import com.android.book.viewmodel.BillViewModel;
 
 import java.util.List;
@@ -34,6 +39,13 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private BillViewModel billViewModel;
+
+    private RecyclerView recyclerview;
+    private BillListAdapter billListAdapter;
+
+    private TextView tv_amount, tv_amount1;
+
+    private double mTotalAmount;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,11 +78,11 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        tv_amount1 = view.findViewById(R.id.tv_amount1);
+        tv_amount = view.findViewById(R.id.tv_amount);
         FloatingActionButton fab_add = view.findViewById(R.id.fab_add);
 
         fab_add.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +92,25 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        recyclerview = view.findViewById(R.id.recyclerview);
+        billListAdapter = new BillListAdapter(getActivity());
+        recyclerview.setAdapter(billListAdapter);
+        recyclerview.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
 
         billViewModel.getBills().observe(this, new Observer<List<Bill>>() {
             @Override
             public void onChanged(@Nullable List<Bill> bills) {
-                //update recyclerview
-                Log.d(TAG, "onChanged: " + bills.toString());
+                if (bills != null) {
+                    bills.addAll(bills);
+                    billListAdapter.setBillList(bills);
+
+                    mTotalAmount = 0;
+                    for (Bill bill : bills) {
+                        mTotalAmount += bill.getAmcount();
+                    }
+                    tv_amount.setText(String.format("￥:%s", String.valueOf(mTotalAmount)));
+                }
             }
         });
         return view;

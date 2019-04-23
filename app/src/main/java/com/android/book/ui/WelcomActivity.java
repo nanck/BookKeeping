@@ -21,6 +21,6 @@ public class WelcomActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3_000);
+        }, 1_000);
     }
 }

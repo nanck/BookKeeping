@@ -145,10 +145,10 @@ public class NewBillActivity extends AppCompatActivity {
                 }
                 Bill bill = new Bill();
                 bill.setAmcount(Double.valueOf(amount));
-                bill.setBillType(BookConstants.TYPE_EXPENSES);
-                bill.setPayType(mCurrPayType.getPayKey());
+                bill.setBillType(BookConstants.TYPE_EXPENSES_VALUE);
+                bill.setPayType(mCurrPayType.getPayValue());
                 bill.setDesc(desc);
-                bill.setShoppingType(mCurrType.getKey());
+                bill.setShoppingType(mCurrType.getValue());
                 bill.setAddTtime(Util.formatDate(new Date()));
                 billViewModel.addBill(bill);
                 finish();

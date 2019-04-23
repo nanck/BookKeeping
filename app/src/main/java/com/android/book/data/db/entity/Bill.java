@@ -24,19 +24,19 @@ public class Bill {
 
     //交易方式{0支付宝，1微信，2刷卡，3现金}
     @ColumnInfo(name = "pay_type")
-    private int payType;
+    private String payType;
 
     //购物方式{0购物，1旅游，2吃饭，3娱乐，4出行}
     @ColumnInfo(name = "shopping_type")
-    private int shoppingType;
+    private String shoppingType;
 
     //账单类型{0支出，1收入}
     @ColumnInfo(name = "bill_type")
-    private int billType;
+    private String billType;
 
     //收入类型{0理财，1收账}
     @ColumnInfo(name = "income_type")
-    private int incomeType;
+    private String incomeType;
 
     //交易描述
     @ColumnInfo(name = "desc")
@@ -66,35 +66,35 @@ public class Bill {
         this.addTtime = addTtime;
     }
 
-    public int getPayType() {
+    public String getPayType() {
         return payType;
     }
 
-    public void setPayType(int payType) {
+    public void setPayType(String payType) {
         this.payType = payType;
     }
 
-    public int getShoppingType() {
+    public String getShoppingType() {
         return shoppingType;
     }
 
-    public void setShoppingType(int shoppingType) {
+    public void setShoppingType(String shoppingType) {
         this.shoppingType = shoppingType;
     }
 
-    public int getBillType() {
+    public String getBillType() {
         return billType;
     }
 
-    public void setBillType(int billType) {
+    public void setBillType(String billType) {
         this.billType = billType;
     }
 
-    public int getIncomeType() {
+    public String getIncomeType() {
         return incomeType;
     }
 
-    public void setIncomeType(int incomeType) {
+    public void setIncomeType(String incomeType) {
         this.incomeType = incomeType;
     }
 

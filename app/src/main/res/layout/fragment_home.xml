@@ -9,32 +9,37 @@
         android:id="@+id/tv_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
         android:text="@string/month_amount"
         android:textColor="@color/colorNormal"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_amount"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="￥:10000.00"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="￥:0.00"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_label1"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_label" />
 
     <TextView
         android:id="@+id/tv_label1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/month_shouru"
         android:textColor="@color/colorNormal"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_amount1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_amount" />
 
@@ -43,20 +48,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="￥:10000.00"
+        android:text="￥:0.00"
         android:textColor="@color/colorRed"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/billlabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_label1" />
+
+    <TextView
+        android:id="@+id/billlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最近消费"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_amount1" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/tv_amount1"
-        tools:listitem="@layout/recyclerview_item" />
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/billlabel"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:listitem="@layout/item_bill" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"
