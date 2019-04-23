@@ -12,18 +12,115 @@
             layout="@layout/toolbar"
             android:id="@+id/toolbar_layout"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <TextView
+            android:id="@+id/billTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/billType"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guideline"
+            android:layout_margin="@dimen/twenty_dp"
+            android:textSize="@dimen/fourteen_sp"
+            />
+
+
+    <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintWidth_percent="0.78"
+            app:layout_constraintTop_toTopOf="@+id/billTypeLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/billTypeLabel"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_expenses"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/expenses"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/fourteen_sp"
+                android:checked="true"
+                />
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_income"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/income"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/fourteen_sp"
+                />
+    </RadioGroup>
+
+    <TextView
+            android:id="@+id/incomeTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/incomeType"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintTop_toBottomOf="@+id/billTypeLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guideline"
+            android:layout_margin="@dimen/twenty_dp"
+            android:textSize="@dimen/fourteen_sp"
+            />
+
+
+    <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintWidth_percent="0.78"
+            app:layout_constraintTop_toTopOf="@+id/incomeTypeLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/incomeTypeLabel"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_lc"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/licai"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/fourteen_sp"
+                android:checked="true"
+                />
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_sz"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/sz"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/fourteen_sp"
+                />
+    </RadioGroup>
+
     <TextView
             android:id="@+id/descLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/desc"
             android:textColor="@color/colorBlack"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+            app:layout_constraintTop_toBottomOf="@+id/incomeTypeLabel"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/guideline"
             android:layout_margin="@dimen/twenty_dp"
-            android:textSize="@dimen/fourteen_sp"/>
+            android:textSize="@dimen/fourteen_sp"
+            />
 
     <android.support.v7.widget.AppCompatEditText
             android:id="@+id/et_desc"
@@ -37,7 +134,8 @@
             app:layout_constraintLeft_toLeftOf="@+id/guideline"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintWidth_percent="0.78"
-            android:inputType="text"/>
+            android:inputType="text"
+            />
 
     <TextView
             android:id="@+id/typeLabel"

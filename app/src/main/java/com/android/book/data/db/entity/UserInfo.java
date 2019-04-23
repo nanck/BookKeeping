@@ -12,8 +12,8 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "t_user")
 public class UserInfo {
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "phone_no")
+    @NonNull
     private String phoneNumber;
 
     @ColumnInfo(name = "name")

@@ -22,9 +22,9 @@ public class Bill {
     @ColumnInfo(name = "add_time")
     private String addTtime;
 
-    //交易方式{0支付宝，1微信，3刷卡，4现金}
-    @ColumnInfo(name = "channel_type")
-    private int channelType;
+    //交易方式{0支付宝，1微信，2刷卡，3现金}
+    @ColumnInfo(name = "pay_type")
+    private int payType;
 
     //购物方式{0购物，1旅游，2吃饭，3娱乐，4出行}
     @ColumnInfo(name = "shopping_type")
@@ -66,12 +66,12 @@ public class Bill {
         this.addTtime = addTtime;
     }
 
-    public int getChannelType() {
-        return channelType;
+    public int getPayType() {
+        return payType;
     }
 
-    public void setChannelType(int channelType) {
-        this.channelType = channelType;
+    public void setPayType(int payType) {
+        this.payType = payType;
     }
 
     public int getShoppingType() {
@@ -104,5 +104,19 @@ public class Bill {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id=" + id +
+                ", amcount=" + amcount +
+                ", addTtime='" + addTtime + '\'' +
+                ", payType=" + payType +
+                ", shoppingType=" + shoppingType +
+                ", billType=" + billType +
+                ", incomeType=" + incomeType +
+                ", desc='" + desc + '\'' +
+                '}';
     }
 }

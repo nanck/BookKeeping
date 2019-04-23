@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.ui.NewBillActivity;
@@ -27,6 +26,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    private static final String TAG = "home";
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -85,10 +86,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<Bill> bills) {
                 //update recyclerview
+                Log.d(TAG, "onChanged: " + bills.toString());
             }
         });
-
-
         return view;
     }
 
