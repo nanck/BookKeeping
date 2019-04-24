@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -59,10 +61,21 @@ public class Util {
 
     /**
      * format date show with yyyy-MM-dd HH:mm:ss
+     *
      * @param date current date
      * @return
      */
     public static String formatDate(Date date) {
         return formatter.get().format(date);
+    }
+
+    /**
+     * 金额保留两位小数
+     * @param amount
+     * @return
+     */
+    public static String formatAmount(double amount) {
+        DecimalFormat df = new DecimalFormat("#####0.00");
+        return df.format(amount);
     }
 }

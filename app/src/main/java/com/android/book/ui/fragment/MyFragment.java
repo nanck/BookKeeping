@@ -1,13 +1,17 @@
 package com.android.book.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.android.book.R;
+import com.android.book.ui.LoginActivity;
 
 /**
  * Activities that contain this fragment must implement the
@@ -56,10 +60,31 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my, container, false);
-        TextView textView = view.findViewById(R.id.textView);
-        textView.setText("my");
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.nav_my));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        TextView tv_username = view.findViewById(R.id.tv_username);
+
+        RelativeLayout rl_setting = view.findViewById(R.id.rl_setting);
+
+        tv_username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //login
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        rl_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //setting
+            }
+        });
+
         return view;
     }
 

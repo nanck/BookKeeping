@@ -20,6 +20,7 @@ import com.android.book.data.db.entity.Bill;
 import com.android.book.ui.NewBillActivity;
 import com.android.book.ui.adapter.BillListAdapter;
 import com.android.book.utilitles.RecyclerViewDivider;
+import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.BillViewModel;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
     private TextView tv_amount, tv_amount1;
 
     private double mTotalAmount;
+    private double mTotalMakeMoney = 0.00;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -114,12 +116,11 @@ public class HomeFragment extends Fragment {
                     for (Bill bill : bills) {
                         mTotalAmount += bill.getAmcount();
                     }
-                    tv_amount.setText(String.format("￥:%s", String.valueOf(mTotalAmount)));
+                    tv_amount.setText(String.format("￥%s", Util.formatAmount(mTotalAmount)));
+                    tv_amount1.setText(String.format("￥%s", Util.formatAmount(mTotalMakeMoney)));
                 }
             }
         });
         return view;
     }
-
-
 }

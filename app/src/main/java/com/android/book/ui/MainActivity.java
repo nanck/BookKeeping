@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
                     showAndHideFragment(homeFragment);
                     return true;
                 case R.id.action_bill:
-                    BillFragment billFragment = new BillFragment();
+                    BillFragment billFragment =BillFragment.newInstance("","");
                     showAndHideFragment(billFragment);
                     return true;
                 case R.id.action_my:
-                    MyFragment myFragment = new MyFragment();
+                    MyFragment myFragment =  MyFragment.newInstance("","");
                     showAndHideFragment(myFragment);
                     return true;
                 default:
