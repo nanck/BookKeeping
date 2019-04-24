@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.ui.NewBillActivity;
@@ -80,6 +81,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.app_name));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         tv_amount1 = view.findViewById(R.id.tv_amount1);
         tv_amount = view.findViewById(R.id.tv_amount);
