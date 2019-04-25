@@ -22,5 +22,5 @@ public interface UserDao {
     void deleteUser();
 
     @Query("SELECT * FROM t_user where name=:username and pwd=:pwd")
-    LiveData<UserInfo> getUser(String username, String pwd);
+    UserInfo getUser(String username, String pwd);
 }

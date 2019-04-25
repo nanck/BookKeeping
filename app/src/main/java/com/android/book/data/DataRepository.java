@@ -49,7 +49,7 @@ public class DataRepository {
         });
     }
 
-    public LiveData<UserInfo> getUserInfo(String userName, String pwd) {
+    public UserInfo getUserInfo(String userName, String pwd) {
         return userDao.getUser(userName, pwd);
     }
 

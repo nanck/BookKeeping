@@ -2,8 +2,6 @@ package com.android.book.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-
 import com.android.book.AppExecutors;
 import com.android.book.data.DataRepository;
 import com.android.book.data.db.entity.UserInfo;
@@ -26,7 +24,7 @@ public class UserViewModel extends AndroidViewModel {
         repository.addUser(userInfo);
     }
 
-    public LiveData<UserInfo> getUser(String userName, String pwd) {
+    public UserInfo getUser(String userName, String pwd) {
         return repository.getUserInfo(userName, pwd);
     }
 }

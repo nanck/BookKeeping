@@ -2,17 +2,21 @@ package com.android.book.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.android.book.R;
+import com.android.book.data.db.entity.UserInfo;
+import com.android.book.viewmodel.UserViewModel;
 
 import java.util.List;
 
@@ -20,12 +24,15 @@ import java.util.List;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "LoginActivity";
     private UserLoginTask mAuthTask = null;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
         mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
@@ -79,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuthTask != null) {
             return;
         }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -122,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     /**
@@ -167,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private final String mEmail;
         private final String mPassword;
+        private UserInfo loginUser;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -176,20 +185,24 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             //login or regiest
-
-            return true;
+            Log.d(TAG, "doInBackground: start...");
+            loginUser = userViewModel.getUser(mEmail, mPassword);
+            Log.d(TAG, "doInBackground: end...");
+            if (loginUser != null) {
+                return true;
+            }
+            return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                mEmailView.setError(getString(R.string.error_incorrect_password));
+                mEmailView.requestFocus();
             }
         }
 
