@@ -40,4 +40,5 @@
     <string name="error_invalid_password">密码长度最低6位</string>
     <string name="error_incorrect_password">密码或者账号不正确</string>
     <string name="error_field_required">请先完成信息填写</string>
+
 </resources>

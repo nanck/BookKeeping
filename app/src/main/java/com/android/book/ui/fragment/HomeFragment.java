@@ -22,6 +22,7 @@ import com.android.book.ui.adapter.BillListAdapter;
 import com.android.book.utilitles.RecyclerViewDivider;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.BillViewModel;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
