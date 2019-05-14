@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">简单记账本</string>
+    <string name="app_name">SampleNote</string>
     <string name="logo_str">Bookkeeping</string>
 
     <string name="nav_home">首页</string>
@@ -31,14 +31,21 @@
     <string name="title_activity_login">登录</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">请输入邮箱地址</string>
+    <string name="prompt_phone">请输入手机号码</string>
     <string name="prompt_password">请输入密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_regist">注册</string>
     <string name="action_register_hint">没有账号？立即注册！</string>
     <string name="error_invalid_email">请输入合法的邮箱地址</string>
     <string name="error_invalid_password">密码长度最低6位</string>
+    <string name="error_confrim_password">两次密码不一致，请重新输入</string>
+    <string name="error_regist">注册失败请稍后重试</string>
     <string name="error_incorrect_password">密码或者账号不正确</string>
     <string name="error_field_required">请先完成信息填写</string>
+    <string name="str_not_account">没有账号？</string>
+    <string name="str_forget_pwd">忘记密码？</string>
+    <string name="user_existed">用户已经存在</string>
+    <string name="regist_success">注册成功</string>
 
 </resources>

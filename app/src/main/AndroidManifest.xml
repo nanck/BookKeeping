@@ -36,8 +36,11 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.LoginActivity"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:label="@string/title_activity_login">
+                android:label="@string/title_activity_login"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ui.RegisiterActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

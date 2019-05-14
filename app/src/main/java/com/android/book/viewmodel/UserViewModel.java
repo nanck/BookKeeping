@@ -20,8 +20,13 @@ public class UserViewModel extends AndroidViewModel {
         repository = new DataRepository(application, appExecutors);
     }
 
-    public void addUser(UserInfo userInfo) {
+    public boolean addUser(UserInfo userInfo) {
+        UserInfo user = repository.isExited(userInfo.getPhoneNumber());
+        if (user != null) {
+            return false;
+        }
         repository.addUser(userInfo);
+        return true;
     }
 
     public UserInfo getUser(String userName, String pwd) {

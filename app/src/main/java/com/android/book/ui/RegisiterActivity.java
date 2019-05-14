@@ -1,11 +1,8 @@
 package com.android.book.ui;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.android.book.R;
@@ -22,92 +18,62 @@ import com.android.book.data.db.entity.UserInfo;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.UserViewModel;
 
-import java.util.List;
-
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity {
+public class RegisiterActivity extends AppCompatActivity {
     private static final String TAG = "ssx";
-    private UserLoginTask mAuthTask = null;
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private EditText mPasswordView, mConfirmPassword, mPhoneView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private UserRegistTask mRegistTask = null;
     UserViewModel userViewModel;
-    AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_regisiter);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.action_sign_in));
+        toolbar.setTitle(getString(R.string.action_regist));
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        accountManager = AccountManager.get(this);
 
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         mEmailView = findViewById(R.id.email);
-        populateAutoComplete();
-
         mPasswordView = findViewById(R.id.password);
+        mConfirmPassword = findViewById(R.id.confirm_password);
+        mPhoneView = findViewById(R.id.phone);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptRegist();
                     return true;
                 }
                 return false;
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mRegist = findViewById(R.id.email_regist_button);
+        mRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegist();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-
-        findViewById(R.id.tv_regisiter).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisiterActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.tv_forget).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
-    /**
-     * 添加自动填充数据
-     */
-    private void populateAutoComplete() {
-
-    }
-
-    private void attemptLogin() {
-        if (mAuthTask != null) {
+    private void attemptRegist() {
+        if (mRegistTask != null) {
             return;
         }
         // Reset errors.
@@ -117,9 +83,16 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-
+        String confrimPwd = mConfirmPassword.getText().toString();
+        String phone = mPhoneView.getText().toString();
         boolean cancel = false;
         View focusView = null;
+
+        if (TextUtils.isEmpty(phone)) {
+            mPhoneView.setError(getString(R.string.prompt_phone));
+            focusView = mPhoneView;
+            cancel = true;
+        }
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !Util.isPasswordValid(password)) {
@@ -128,6 +101,11 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        if (!password.equals(confrimPwd)) {
+            mConfirmPassword.setError(getString(R.string.error_confrim_password));
+            focusView = mConfirmPassword;
+            cancel = true;
+        }
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -142,8 +120,8 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mRegistTask = new UserRegistTask(email, password, phone);
+            mRegistTask.execute((Void) null);
         }
     }
 
@@ -168,63 +146,50 @@ public class LoginActivity extends AppCompatActivity {
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         });
-
     }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
-                android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
-
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserRegistTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
-        private UserInfo loginUser;
+        private final String mPhone;
 
-        UserLoginTask(String email, String password) {
+        UserRegistTask(String email, String password, String phone) {
             mEmail = email;
             mPassword = password;
+            mPhone = phone;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             //login or regiest
-            Log.d(TAG, "doInBackground: start...");
-            loginUser = userViewModel.getUser(mEmail, mPassword);
-            Log.d(TAG, "doInBackground: end...");
-            if (loginUser != null) {
-                return true;
-            }
-            return false;
+            UserInfo userInfo = new UserInfo();
+            userInfo.setPassWord(mPassword);
+            userInfo.setUserName(mEmail);
+            userInfo.setPhoneNumber(mPhone);
+            return userViewModel.addUser(userInfo);
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            mRegistTask = null;
             showProgress(false);
             if (success) {
+                Toast.makeText(RegisiterActivity.this, getString(R.string.regist_success), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                mEmailView.setError(getString(R.string.error_incorrect_password));
-                mEmailView.requestFocus();
+                Toast.makeText(RegisiterActivity.this, getString(R.string.user_existed), Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            mRegistTask = null;
             showProgress(false);
         }
     }
 }
-

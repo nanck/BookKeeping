@@ -5,7 +5,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,11 +70,20 @@ public class Util {
 
     /**
      * 金额保留两位小数
+     *
      * @param amount
      * @return
      */
     public static String formatAmount(double amount) {
         DecimalFormat df = new DecimalFormat("#####0.00");
         return df.format(amount);
+    }
+
+    public static boolean isEmailValid(String email) {
+        return email.contains("@");
+    }
+
+    public static boolean isPasswordValid(String password) {
+        return password.length() > 5;
     }
 }

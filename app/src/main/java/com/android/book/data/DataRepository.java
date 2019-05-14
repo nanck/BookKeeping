@@ -2,7 +2,6 @@ package com.android.book.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-
 import com.android.book.AppExecutors;
 import com.android.book.data.db.AppDataBase;
 import com.android.book.data.db.dao.BillDao;
@@ -51,6 +50,10 @@ public class DataRepository {
 
     public UserInfo getUserInfo(String userName, String pwd) {
         return userDao.getUser(userName, pwd);
+    }
+
+    public UserInfo isExited(String phone) {
+        return userDao.isExited(phone);
     }
 
     public void addBill(final Bill bill) {
