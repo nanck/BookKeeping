@@ -39,6 +39,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/prompt_phone"
+                        android:maxLength="11"
                         android:inputType="phone"
                         android:maxLines="1"
                         android:singleLine="true"/>

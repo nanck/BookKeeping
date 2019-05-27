@@ -79,8 +79,8 @@ public class Util {
         return df.format(amount);
     }
 
-    public static boolean isEmailValid(String email) {
-        return email.contains("@");
+    public static boolean isPhoneValid(String phone) {
+        return phone.startsWith("1");
     }
 
     public static boolean isPasswordValid(String password) {
