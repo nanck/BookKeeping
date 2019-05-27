@@ -1,6 +1,5 @@
 package com.android.book.ui;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -19,9 +18,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
+import com.android.book.ui.model.GloabalUtils;
+import com.android.book.ui.model.RouteManager;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.UserViewModel;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -55,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         accountManager = AccountManager.get(this);
-
 
         mEmailView = findViewById(R.id.email);
         populateAutoComplete();
@@ -142,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(this, email, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -185,34 +186,33 @@ public class LoginActivity extends AppCompatActivity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, UserInfo> {
 
+        private final WeakReference<LoginActivity> mLonginActivity;
         private final String mEmail;
         private final String mPassword;
-        private UserInfo loginUser;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(LoginActivity loginActivity, String email, String password) {
             mEmail = email;
             mPassword = password;
+            mLonginActivity = new WeakReference<>(loginActivity);
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected UserInfo doInBackground(Void... params) {
             //login or regiest
             Log.d(TAG, "doInBackground: start...");
-            loginUser = userViewModel.getUser(mEmail, mPassword);
-            Log.d(TAG, "doInBackground: end...");
-            if (loginUser != null) {
-                return true;
-            }
-            return false;
+            return userViewModel.getUser(mEmail, mPassword);
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final UserInfo userInfo) {
             mAuthTask = null;
             showProgress(false);
-            if (success) {
+            if (userInfo != null) {
+                RouteManager.getInstance().setUserStatus(new RouteManager.LoginStatus());
+                GloabalUtils.setUserName(mLonginActivity.get(), userInfo.getUserName());
+                GloabalUtils.setUserPhone(mLonginActivity.get(), userInfo.getPhoneNumber());
                 finish();
             } else {
                 mEmailView.setError(getString(R.string.error_incorrect_password));

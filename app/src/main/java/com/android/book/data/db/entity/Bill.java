@@ -14,9 +14,11 @@ public class Bill {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "phone_no")
+    private String phoneNumber;
     //金额
     @ColumnInfo(name = "amount")
-    private double amcount;
+    private double amount;
 
     //记录时间 yyyy-MM-dd HH:mm:ss
     @ColumnInfo(name = "add_time")
@@ -50,12 +52,20 @@ public class Bill {
         this.id = id;
     }
 
-    public double getAmcount() {
-        return amcount;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAmcount(double amcount) {
-        this.amcount = amcount;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public String getAddTtime() {
@@ -110,12 +120,13 @@ public class Bill {
     public String toString() {
         return "Bill{" +
                 "id=" + id +
-                ", amcount=" + amcount +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", amount=" + amount +
                 ", addTtime='" + addTtime + '\'' +
-                ", payType=" + payType +
-                ", shoppingType=" + shoppingType +
-                ", billType=" + billType +
-                ", incomeType=" + incomeType +
+                ", payType='" + payType + '\'' +
+                ", shoppingType='" + shoppingType + '\'' +
+                ", billType='" + billType + '\'' +
+                ", incomeType='" + incomeType + '\'' +
                 ", desc='" + desc + '\'' +
                 '}';
     }

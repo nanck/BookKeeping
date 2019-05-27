@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.compileSdk
-    buildToolsVersion rootProject.buildToolVersion
     defaultConfig {
         applicationId "com.android.book"
         minSdkVersion rootProject.minSdk
@@ -17,6 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion rootProject.buildToolVersion
 }
 
 dependencies {

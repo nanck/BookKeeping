@@ -1,17 +1,19 @@
 package com.android.book.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.book.R;
-import com.android.book.ui.LoginActivity;
+import com.android.book.ui.model.GloabalUtils;
+import com.android.book.ui.model.RouteManager;
+import com.android.book.ui.model.Status;
+import com.android.book.ui.widget.CustomTextView;
 
 /**
  * Activities that contain this fragment must implement the
@@ -21,10 +23,14 @@ import com.android.book.ui.LoginActivity;
  * create an instance of this fragment.
  */
 public class MyFragment extends Fragment {
+    private static final String TAG = "ssx";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+
+    private TextView tv_username;
+    private Status userStatus = new RouteManager.LogoutStatus();
 
 
     public MyFragment() {
@@ -58,35 +64,49 @@ public class MyFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.nav_my));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        TextView tv_username = view.findViewById(R.id.tv_username);
+        tv_username = view.findViewById(R.id.tv_username);
+        CustomTextView ctv_setting = view.findViewById(R.id.ctv_setting);
+        CustomTextView ctv_logout = view.findViewById(R.id.ctv_logout);
 
-        RelativeLayout rl_setting = view.findViewById(R.id.rl_setting);
+        userStatus = RouteManager.getInstance().getUserStatus();
 
         tv_username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //login
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                userStatus.lookBasicInfo(getActivity());
             }
         });
-        rl_setting.setOnClickListener(new View.OnClickListener() {
+        ctv_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setting
+                userStatus.doSetting(getActivity());
             }
         });
 
+        ctv_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_username.setText(getString(R.string.hint_tologin));
+                RouteManager.getInstance().setUserStatus(new RouteManager.LogoutStatus());
+                GloabalUtils.clear(getActivity());
+            }
+        });
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        String userNme = GloabalUtils.getUserNme(getActivity());
+        if (!TextUtils.isEmpty(userNme)) {
+            tv_username.setText(userNme);
+        }
+        super.onResume();
+    }
 }

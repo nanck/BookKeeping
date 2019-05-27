@@ -2,6 +2,7 @@ package com.android.book.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import com.android.book.AppExecutors;
 import com.android.book.data.DataRepository;
 import com.android.book.data.db.entity.UserInfo;
@@ -13,7 +14,7 @@ import com.android.book.data.db.entity.UserInfo;
 public class UserViewModel extends AndroidViewModel {
 
     private DataRepository repository;
-
+    
     public UserViewModel(Application application) {
         super(application);
         AppExecutors appExecutors = AppExecutors.getInstance();
@@ -31,5 +32,9 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserInfo getUser(String userName, String pwd) {
         return repository.getUserInfo(userName, pwd);
+    }
+
+    public LiveData<UserInfo> getInfoLiveData() {
+        return repository.getLoginUser();
     }
 }

@@ -37,7 +37,7 @@
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请登录"
+                android:text="@string/hint_tologin"
                 android:textSize="@dimen/twenty_sp"
                 android:textColor="@color/colorBlack"
                 android:layout_marginStart="20dp"
@@ -47,38 +47,38 @@
                 app:layout_constraintRight_toRightOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/line"/>
-
-    <RelativeLayout
-            android:id="@+id/rl_setting"
+    <com.android.book.ui.widget.CustomTextView
+            android:id="@+id/ctv_setting"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:bottomLineHeight="1dp"
+            app:bottomLineShow="true"
+            app:bottomcolor="@color/line"
+            app:leftTvString="@string/setting"
+            app:leftImgMarginleft="5dp"
+            app:leftTvMarginleft="5dp"
+            app:leftImg="@drawable/ic_settings_blue_24dp"
+            app:rightImg="@drawable/ic_arrow_right_black_24dp"
+            app:leftTopTvColor="@color/colorBlack"
+            app:leftTvSize="@dimen/fifteen_sp"
+            />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:text="@string/setting"/>
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_right_black_24dp"
-                android:layout_marginEnd="@dimen/twenty_dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
-
-    <View
+    <com.android.book.ui.widget.CustomTextView
+            android:id="@+id/ctv_logout"
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/line"/>
+            android:layout_height="48dp"
+            android:background="@color/white"
+            app:bottomLineHeight="1dp"
+            app:bottomLineShow="true"
+            app:bottomcolor="@color/line"
+            app:leftTvString="@string/logout"
+            app:leftImgMarginleft="5dp"
+            app:leftTvMarginleft="5dp"
+            app:leftImg="@drawable/ic_exit_to_app_black_24dp"
+            app:rightImg="@drawable/ic_arrow_right_black_24dp"
+            app:leftTopTvColor="@color/colorBlack"
+            app:leftTvSize="@dimen/fifteen_sp"
+            />
 </LinearLayout>

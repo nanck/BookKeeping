@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
+import com.android.book.utilitles.Util;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillVi
         Bill bill = billList.get(position);
         holder.tvPayType.setText(String.valueOf(bill.getPayType()));
         holder.tvDesc.setText(bill.getDesc());
-        holder.tvAmount.setText(String.valueOf(bill.getAmcount()));
+        holder.tvAmount.setText(Util.formatAmount(bill.getAmount()));
     }
 
     @Override

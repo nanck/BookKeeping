@@ -37,10 +37,14 @@
         <activity
                 android:name=".ui.LoginActivity"
                 android:label="@string/title_activity_login"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".ui.RegisiterActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.RegisiterActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.BasicInfoActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.SettingActivity">
         </activity>
     </application>
 

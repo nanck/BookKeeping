@@ -46,4 +46,13 @@ public class UserInfo {
     public void setPassWord(String passWord) {
         this.passWord = passWord;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                '}';
+    }
 }

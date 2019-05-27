@@ -3,7 +3,6 @@ package com.android.book.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-
 import com.android.book.AppExecutors;
 import com.android.book.data.DataRepository;
 import com.android.book.data.db.entity.Bill;
@@ -24,8 +23,16 @@ public class BillViewModel extends AndroidViewModel {
         repository = new DataRepository(application, appExecutors);
     }
 
-    public LiveData<List<Bill>> getBills() {
-        return repository.getBills();
+    public LiveData<List<Bill>> getBills(String phone) {
+        return repository.getBills(phone);
+    }
+
+    public LiveData<List<Bill>> getWeekBills(String phone) {
+        return repository.getWeekBills(phone);
+    }
+
+    LiveData<List<Bill>> getMonthBills(String phone) {
+        return repository.getMonthBills(phone);
     }
 
     public void addBill(Bill bill) {

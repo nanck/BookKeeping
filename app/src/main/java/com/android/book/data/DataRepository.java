@@ -2,6 +2,7 @@ package com.android.book.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import com.android.book.AppExecutors;
 import com.android.book.data.db.AppDataBase;
 import com.android.book.data.db.dao.BillDao;
@@ -30,6 +31,8 @@ public class DataRepository {
 
     private AppExecutors executors;
 
+    private MutableLiveData<UserInfo> infoLiveData;
+
     public DataRepository(Application application, AppExecutors executors) {
         AppDataBase dataBase = AppDataBase.getInstance(application);
         userDao = dataBase.userDao();
@@ -37,7 +40,9 @@ public class DataRepository {
         typeDao = dataBase.typeDao();
         payTypeDao = dataBase.payTypeDao();
         this.executors = executors;
+        infoLiveData = new MutableLiveData<>();
     }
+
 
     public void addUser(final UserInfo userInfo) {
         executors.diskIO().execute(new Runnable() {
@@ -49,7 +54,13 @@ public class DataRepository {
     }
 
     public UserInfo getUserInfo(String userName, String pwd) {
-        return userDao.getUser(userName, pwd);
+        UserInfo user = userDao.getUser(userName, pwd);
+        infoLiveData.postValue(user);
+        return user;
+    }
+
+    public LiveData<UserInfo> getLoginUser() {
+        return infoLiveData;
     }
 
     public UserInfo isExited(String phone) {
@@ -65,10 +76,17 @@ public class DataRepository {
         });
     }
 
-    public LiveData<List<Bill>> getBills() {
-        return billDao.getBills();
+    public LiveData<List<Bill>> getBills(String phone) {
+        return billDao.getBills(phone);
     }
 
+    public LiveData<List<Bill>> getWeekBills(String phone) {
+        return billDao.getWeekBills(phone);
+    }
+
+    public LiveData<List<Bill>> getMonthBills(String phone) {
+        return billDao.getMonthBills(phone);
+    }
 
     public LiveData<List<Type>> getTypes() {
         return typeDao.getAllTTypes();

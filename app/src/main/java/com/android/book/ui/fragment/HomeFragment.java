@@ -2,7 +2,6 @@ package com.android.book.ui.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
-import com.android.book.ui.NewBillActivity;
 import com.android.book.ui.adapter.BillListAdapter;
+import com.android.book.ui.model.GloabalUtils;
+import com.android.book.ui.model.RouteManager;
 import com.android.book.utilitles.RecyclerViewDivider;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.BillViewModel;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -96,8 +95,7 @@ public class HomeFragment extends Fragment {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewBillActivity.class);
-                startActivity(intent);
+                RouteManager.getInstance().addBill(getActivity());
             }
         });
         recyclerview = view.findViewById(R.id.recyclerview);
@@ -106,19 +104,28 @@ public class HomeFragment extends Fragment {
         recyclerview.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
 
-        billViewModel.getBills().observe(this, new Observer<List<Bill>>() {
+        String phone = GloabalUtils.getUserPhone(getContext());
+        //本月
+        billViewModel.getBills(phone).observe(this, new Observer<List<Bill>>() {
+            @Override
+            public void onChanged(@Nullable List<Bill> bills) {
+                if (bills != null) {
+                    mTotalAmount = 0;
+                    for (Bill bill : bills) {
+                        mTotalAmount += bill.getAmount();
+                    }
+                    tv_amount.setText(String.format("￥%s", Util.formatAmount(mTotalAmount)));
+                    tv_amount1.setText(String.format("￥%s", Util.formatAmount(mTotalMakeMoney)));
+                }
+            }
+        });
+        //最近一周
+        billViewModel.getWeekBills(phone).observe(this, new Observer<List<Bill>>() {
             @Override
             public void onChanged(@Nullable List<Bill> bills) {
                 if (bills != null) {
                     bills.addAll(bills);
                     billListAdapter.setBillList(bills);
-
-                    mTotalAmount = 0;
-                    for (Bill bill : bills) {
-                        mTotalAmount += bill.getAmcount();
-                    }
-                    tv_amount.setText(String.format("￥%s", Util.formatAmount(mTotalAmount)));
-                    tv_amount1.setText(String.format("￥%s", Util.formatAmount(mTotalMakeMoney)));
                 }
             }
         });

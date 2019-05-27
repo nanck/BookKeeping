@@ -19,8 +19,8 @@ public interface UserDao {
     @Query("DELETE FROM t_user")
     void deleteUser();
 
-    @Query("SELECT * FROM t_user where name=:username and pwd=:pwd")
-    UserInfo getUser(String username, String pwd);
+    @Query("SELECT * FROM t_user where phone_no=:phone and pwd=:pwd")
+    UserInfo getUser(String phone, String pwd);
 
     @Query("SELECT * FROM t_user where phone_no=:phone")
     UserInfo isExited(String phone);
