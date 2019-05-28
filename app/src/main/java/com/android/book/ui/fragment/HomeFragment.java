@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
+import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.adapter.BillListAdapter;
 import com.android.book.ui.model.GloabalUtils;
 import com.android.book.ui.model.RouteManager;
@@ -85,7 +86,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
+        toolbar.setTitle(getString(R.string.nav_home));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         tv_amount1 = view.findViewById(R.id.tv_amount1);
@@ -103,10 +104,13 @@ public class HomeFragment extends Fragment {
         recyclerview.setAdapter(billListAdapter);
         recyclerview.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
-
-        String phone = GloabalUtils.getUserPhone(getContext());
+        UserInfo user = GloabalUtils.getUser();
+        String phone = "";
+        if (user != null) {
+            phone = user.getPhoneNumber();
+        }
         //本月
-        billViewModel.getBills(phone).observe(this, new Observer<List<Bill>>() {
+        billViewModel.getMonthBills(phone).observe(this, new Observer<List<Bill>>() {
             @Override
             public void onChanged(@Nullable List<Bill> bills) {
                 if (bills != null) {
@@ -124,7 +128,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<Bill> bills) {
                 if (bills != null) {
-                    bills.addAll(bills);
                     billListAdapter.setBillList(bills);
                 }
             }

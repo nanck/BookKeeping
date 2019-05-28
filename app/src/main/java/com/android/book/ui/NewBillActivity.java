@@ -18,6 +18,7 @@ import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.data.db.entity.PayType;
 import com.android.book.data.db.entity.Type;
+import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.adapter.PayTypeSpinnerAdapter;
 import com.android.book.ui.adapter.TypeSpinnerAdapter;
 import com.android.book.ui.model.GloabalUtils;
@@ -145,7 +146,11 @@ public class NewBillActivity extends AppCompatActivity {
                     return;
                 }
                 Bill bill = new Bill();
-                String phone = GloabalUtils.getUserPhone(NewBillActivity.this);
+                UserInfo user = GloabalUtils.getUser();
+                String phone = "";
+                if (user != null) {
+                    phone = user.getPhoneNumber();
+                }
                 bill.setPhoneNumber(phone);
                 bill.setAmount(Double.valueOf(amount));
                 bill.setBillType(BookConstants.TYPE_EXPENSES_VALUE);

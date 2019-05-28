@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.android.book.R;
+import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.model.GloabalUtils;
 import com.android.book.ui.model.RouteManager;
 import com.android.book.ui.model.Status;
@@ -74,6 +75,9 @@ public class MyFragment extends Fragment {
         tv_username = view.findViewById(R.id.tv_username);
         CustomTextView ctv_setting = view.findViewById(R.id.ctv_setting);
         CustomTextView ctv_logout = view.findViewById(R.id.ctv_logout);
+        CustomTextView ctv_basic = view.findViewById(R.id.ctv_basic);
+        CustomTextView ctv_delete = view.findViewById(R.id.ctv_delete);
+        CustomTextView ctv_about = view.findViewById(R.id.ctv_about);
 
         userStatus = RouteManager.getInstance().getUserStatus();
 
@@ -95,7 +99,29 @@ public class MyFragment extends Fragment {
             public void onClick(View v) {
                 tv_username.setText(getString(R.string.hint_tologin));
                 RouteManager.getInstance().setUserStatus(new RouteManager.LogoutStatus());
-                GloabalUtils.clear(getActivity());
+                GloabalUtils.clear();
+            }
+        });
+
+
+        ctv_basic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userStatus.lookBasicInfo(getActivity());
+            }
+        });
+
+        ctv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userStatus.deleteUser(getActivity());
+            }
+        });
+
+        ctv_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userStatus.about(getActivity());
             }
         });
         return view;
@@ -103,7 +129,12 @@ public class MyFragment extends Fragment {
 
     @Override
     public void onResume() {
-        String userNme = GloabalUtils.getUserNme(getActivity());
+        userStatus = RouteManager.getInstance().getUserStatus();
+        UserInfo user = GloabalUtils.getUser();
+        String userNme = "";
+        if (user != null) {
+            userNme = user.getUserName();
+        }
         if (!TextUtils.isEmpty(userNme)) {
             tv_username.setText(userNme);
         }

@@ -23,4 +23,8 @@ public interface Status {
      * @param context
      */
     void doSetting(Context context);
+
+    void about(Context context);
+
+    void deleteUser(Context context);
 }

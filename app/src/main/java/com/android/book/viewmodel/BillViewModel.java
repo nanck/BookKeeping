@@ -31,7 +31,7 @@ public class BillViewModel extends AndroidViewModel {
         return repository.getWeekBills(phone);
     }
 
-    LiveData<List<Bill>> getMonthBills(String phone) {
+    public LiveData<List<Bill>> getMonthBills(String phone) {
         return repository.getMonthBills(phone);
     }
 

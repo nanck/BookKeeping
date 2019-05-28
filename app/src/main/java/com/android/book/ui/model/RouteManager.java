@@ -2,6 +2,7 @@ package com.android.book.ui.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 import com.android.book.ui.BasicInfoActivity;
 import com.android.book.ui.LoginActivity;
 import com.android.book.ui.NewBillActivity;
@@ -43,6 +44,15 @@ public class RouteManager {
     }
 
     public static class LoginStatus implements Status {
+        @Override
+        public void about(Context context) {
+            Toast.makeText(context, "功能完善中...", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void deleteUser(Context context) {
+            Toast.makeText(context, "功能完善中...", Toast.LENGTH_SHORT).show();
+        }
 
         @Override
         public void addBill(Context context) {
@@ -64,6 +74,15 @@ public class RouteManager {
     }
 
     public static class LogoutStatus implements Status {
+        @Override
+        public void about(Context context) {
+            doLogin(context);
+        }
+
+        @Override
+        public void deleteUser(Context context) {
+            doLogin(context);
+        }
 
         @Override
         public void addBill(Context context) {

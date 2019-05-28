@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via phone/password.
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "ssx";
@@ -211,8 +211,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
             if (userInfo != null) {
                 RouteManager.getInstance().setUserStatus(new RouteManager.LoginStatus());
-                GloabalUtils.setUserName(mLonginActivity.get(), userInfo.getUserName());
-                GloabalUtils.setUserPhone(mLonginActivity.get(), userInfo.getPhoneNumber());
+                GloabalUtils.saveUser(userInfo);
                 finish();
             } else {
                 mEmailView.setError(getString(R.string.error_incorrect_password));

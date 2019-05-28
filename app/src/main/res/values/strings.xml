@@ -34,6 +34,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">请输入邮箱地址</string>
     <string name="prompt_phone">请输入手机号码</string>
+    <string name="sure_phone">请输入正确的手机号码</string>
     <string name="prompt_password">请输入密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_regist">注册</string>
@@ -49,5 +50,7 @@
     <string name="user_existed">用户已经存在</string>
     <string name="regist_success">注册成功</string>
     <string name="hint_tologin">请登录!</string>
-
+    <string name="basic">基本信息</string>
+    <string name="deleteuser">注销用户</string>
+    <string name="about">关于</string>
 </resources>

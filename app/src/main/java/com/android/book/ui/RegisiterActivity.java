@@ -25,7 +25,7 @@ public class RegisiterActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private UserRegistTask mRegistTask = null;
-    UserViewModel userViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,10 @@ public class RegisiterActivity extends AppCompatActivity {
             mPhoneView.setError(getString(R.string.prompt_phone));
             focusView = mPhoneView;
             cancel = true;
+        } else if (!Util.isPhoneValid(phone)) {
+            mPhoneView.setError(getString(R.string.sure_phone));
+            focusView = mPhoneView;
+            cancel = true;
         }
 
         // Check for a valid password, if the user entered one.
@@ -110,7 +114,7 @@ public class RegisiterActivity extends AppCompatActivity {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!Util.isPhoneValid(email)) {
+        } else if (!Util.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;

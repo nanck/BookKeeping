@@ -1,31 +1,26 @@
 package com.android.book.ui.model;
 
-import android.content.Context;
-import com.android.book.utilitles.PreferenceManager;
+import com.android.book.data.db.entity.UserInfo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GloabalUtils {
+    private static final String KEY = "user";
 
-    private static final String KEY_NAME = "name";
-    private static final String KEY_PHONE = "phone";
+    public static Map<String, Object> userInfoMap = new HashMap<>();
 
-    public static void setUserName(Context context, String userName) {
-        PreferenceManager.getInstance(context).putString(KEY_NAME, userName);
+    public static void saveUser(UserInfo userInfo) {
+        if (!userInfoMap.containsKey(KEY)) {
+            userInfoMap.put(KEY, userInfo);
+        }
     }
 
-    public static void setUserPhone(Context context, String phoneNo) {
-        PreferenceManager.getInstance(context).putString(KEY_PHONE, phoneNo);
+    public static UserInfo getUser() {
+        return (UserInfo) userInfoMap.get(KEY);
     }
 
-    public static String getUserNme(Context context) {
-        return PreferenceManager.getInstance(context).getString(KEY_NAME, "");
-    }
-
-    public static String getUserPhone(Context context) {
-        return PreferenceManager.getInstance(context).getString(KEY_PHONE, "");
-    }
-
-    public static void clear(Context context) {
-        PreferenceManager.getInstance(context).remove(KEY_NAME);
-        PreferenceManager.getInstance(context).remove(KEY_PHONE);
+    public static void clear() {
+        userInfoMap.remove(KEY);
     }
 }

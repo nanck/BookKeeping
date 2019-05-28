@@ -1,14 +1,26 @@
 package com.android.book.ui.fragment;
 
-import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.android.book.R;
+import com.android.book.data.db.entity.Bill;
+import com.android.book.data.db.entity.UserInfo;
+import com.android.book.ui.adapter.BillListAdapter;
+import com.android.book.ui.model.GloabalUtils;
+import com.android.book.utilitles.RecyclerViewDivider;
+import com.android.book.viewmodel.BillViewModel;
+
+import java.util.List;
 
 /**
  * Activities that contain this fragment must implement the
@@ -23,6 +35,10 @@ public class BillFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private BillViewModel billViewModel;
+
+    private RecyclerView recyclerview;
+    private BillListAdapter billListAdapter;
 
     public BillFragment() {
 
@@ -56,10 +72,31 @@ public class BillFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
-        TextView textView = view.findViewById(R.id.textView);
-        textView.setText("bill");
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.nav_bill));
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        recyclerview = view.findViewById(R.id.recyclerview);
+        billListAdapter = new BillListAdapter(getActivity());
+        recyclerview.setAdapter(billListAdapter);
+        recyclerview.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
+        billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
+        UserInfo user = GloabalUtils.getUser();
+        String phone = "";
+        if (user != null) {
+            phone = user.getPhoneNumber();
+        }
+        //本月
+        billViewModel.getMonthBills(phone).observe(this, new Observer<List<Bill>>() {
+            @Override
+            public void onChanged(@Nullable List<Bill> bills) {
+                if (bills != null) {
+                    billListAdapter.setBillList(bills);
+                }
+            }
+        });
         return view;
     }
 
