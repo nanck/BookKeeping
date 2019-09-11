@@ -1,5 +1,6 @@
 package com.android.book.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.book.R;
 import com.android.book.ui.fragment.BillFragment;
@@ -46,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
                     showAndHideFragment(homeFragment);
                     return true;
                 case R.id.action_bill:
-                    BillFragment billFragment =BillFragment.newInstance("","");
+                    BillFragment billFragment = BillFragment.newInstance("", "");
                     showAndHideFragment(billFragment);
                     return true;
                 case R.id.action_my:
-                    MyFragment myFragment =  MyFragment.newInstance("","");
+                    MyFragment myFragment = MyFragment.newInstance("", "");
                     showAndHideFragment(myFragment);
                     return true;
                 default:
