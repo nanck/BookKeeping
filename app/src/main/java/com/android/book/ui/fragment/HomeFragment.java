@@ -1,15 +1,15 @@
 package com.android.book.ui.fragment;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
         recyclerview = view.findViewById(R.id.recyclerview);
         billListAdapter = new BillListAdapter(getActivity());
         recyclerview.setAdapter(billListAdapter);
-        recyclerview.addItemDecoration(new RecyclerViewDivider(getActivity(), LinearLayoutManager.HORIZONTAL));
+        recyclerview.addItemDecoration(new RecyclerViewDivider(requireActivity(), LinearLayoutManager.HORIZONTAL));
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
         UserInfo user = GloabalUtils.getUser();
         String phone = "";

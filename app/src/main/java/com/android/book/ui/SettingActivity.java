@@ -1,13 +1,12 @@
 package com.android.book.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.android.book.R;
 import com.android.book.ui.model.RouteManager;
 import com.android.book.ui.model.Status;
-import com.android.book.ui.widget.CustomTextView;
 
 public class SettingActivity extends AppCompatActivity {
     private Status userStatus = new RouteManager.LogoutStatus();

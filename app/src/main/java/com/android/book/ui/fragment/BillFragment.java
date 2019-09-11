@@ -1,17 +1,18 @@
 package com.android.book.ui.fragment;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.data.db.entity.UserInfo;
@@ -76,7 +77,6 @@ public class BillFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.nav_bill));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         recyclerview = view.findViewById(R.id.recyclerview);
         billListAdapter = new BillListAdapter(getActivity());

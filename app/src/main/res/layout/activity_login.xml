@@ -17,7 +17,7 @@
             android:layout_marginBottom="8dp"
             android:visibility="gone"/>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
             android:id="@+id/login_form"
             android:layout_marginTop="@dimen/forty_dp"
             android:scrollbars="none"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -44,9 +44,9 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -61,7 +61,7 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                     android:id="@+id/email_sign_in_button"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp">
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_regisiter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_alignParentStart="true"
                         android:text="@string/str_not_account"/>
 
-                <android.support.v7.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_forget"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -94,5 +94,5 @@
                         android:text="@string/str_forget_pwd"/>
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

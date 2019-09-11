@@ -17,7 +17,7 @@
             android:layout_marginBottom="8dp"
             android:visibility="gone"/>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
             android:id="@+id/login_form"
             android:layout_marginTop="@dimen/forty_dp"
             android:scrollbars="none"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -44,9 +44,9 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -59,9 +59,9 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -76,9 +76,9 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -93,7 +93,7 @@
                         android:maxLines="1"
                         android:singleLine="true"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                     android:id="@+id/email_regist_button"
@@ -104,5 +104,5 @@
                     android:text="@string/action_regist"
                     android:textStyle="bold"/>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

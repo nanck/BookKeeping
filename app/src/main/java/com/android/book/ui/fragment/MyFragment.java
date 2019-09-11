@@ -1,9 +1,9 @@
 package com.android.book.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +70,7 @@ public class MyFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.nav_my));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
 
         tv_username = view.findViewById(R.id.tv_username);
         CustomTextView ctv_setting = view.findViewById(R.id.ctv_setting);

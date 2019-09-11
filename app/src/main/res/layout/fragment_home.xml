@@ -1,111 +1,110 @@
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:statusBarScrim="@android:color/transparent"
-                app:titleEnabled="false">
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:layout_collapseMode="parallax"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    app:layout_collapseParallaxMultiplier="0.7"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:id="@+id/tv_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/month_amount"
-                        android:textColor="@color/colorNormal"
-                        android:textSize="18sp"/>
-
-                <TextView
-                        android:id="@+id/tv_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/default_amount"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="20sp"/>
-
-                <TextView
-                        android:id="@+id/tv_label1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/month_shouru"
-                        android:textColor="@color/colorNormal"
-                        android:textSize="18sp"/>
-
-                <TextView
-                        android:id="@+id/tv_amount1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:text="@string/default_amount"
-                        android:textColor="@color/colorRed"
-                        android:textSize="20sp"/>
-
-                <TextView
-                        android:id="@+id/billlabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/last_pay"
-                        android:textSize="@dimen/fourteen_sp"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/colorNormal"/>
-            </LinearLayout>
-
-            <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/white"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/item_bill"/>
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent"
+            app:titleEnabled="false">
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add"
-            app:fabSize="normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/twenty_dp"
-            android:src="@drawable/ic_add_black_24dp"
-            app:layout_anchorGravity="bottom|end"
-            app:layout_anchor="@+id/recyclerview"
-            app:layout_behavior="com.android.book.utilitles.ScrollHideBehavior"/>
-</android.support.design.widget.CoordinatorLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/white"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/month_amount"
+                    android:textColor="@color/colorNormal"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/default_amount"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/month_shouru"
+                    android:textColor="@color/colorNormal"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_amount1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@string/default_amount"
+                    android:textColor="@color/colorRed"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/billlabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/last_pay"
+                    android:textColor="@color/colorNormal"
+                    android:textSize="@dimen/fourteen_sp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_bill" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/recyclerview"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="com.android.book.utilitles.ScrollHideBehavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

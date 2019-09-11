@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.android.book.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/add_bill"
+            app:destination="@+id/newBillActivity" />
+
+        <action
+            android:id="@+id/login"
+            app:destination="@+id/loginActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.android.book.ui.fragment.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
+
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.android.book.ui.fragment.MyFragment"
+        android:label="fragment_my"
+        tools:layout="@layout/fragment_my" />
+
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.android.book.ui.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/newBillActivity"
+        android:name="com.android.book.ui.NewBillActivity"
+        android:label="activity_bill_income"
+        tools:layout="@layout/activity_bill_income" />
+
+    <navigation
+        android:id="@+id/navigation2"
+        app:startDestination="@id/welcomActivity" >
+        <activity
+            android:id="@+id/welcomActivity"
+            android:name="com.android.book.ui.WelcomActivity"
+            android:label="activity_welcom"
+            tools:layout="@layout/activity_welcom" />
+    </navigation>
+</navigation>

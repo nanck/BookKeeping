@@ -3,19 +3,25 @@ package com.android.book.ui;
 import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.model.GloabalUtils;
@@ -121,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
 
         boolean cancel = false;
         View focusView = null;
-
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !Util.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
