@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.nav_home));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
         tv_amount1 = view.findViewById(R.id.tv_amount1);
         tv_amount = view.findViewById(R.id.tv_amount);

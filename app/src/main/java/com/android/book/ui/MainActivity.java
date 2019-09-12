@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -16,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CURRENT_FRAGMENT = "currentFragment";
     private static final String TAG = "ssx";
     private BottomNavigationView navBottom;
-    private NavController navController;
+    public NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         navBottom = findViewById(R.id.nav_bottom);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navBottom, navController);
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                
+            }
+        });
     }
 
     @Override
