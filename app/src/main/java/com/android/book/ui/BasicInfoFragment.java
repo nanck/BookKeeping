@@ -1,5 +1,6 @@
 package com.android.book.ui;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +28,17 @@ public class BasicInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.basic_info_fragment, container, false);
+        View view = inflater.inflate(R.layout.basic_info_fragment, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.basic));
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Navigation.;
+            }
+        });
+        return view;
     }
 
     @Override

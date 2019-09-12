@@ -1,13 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.NewBillFragment">
+    tools:context="com.android.book.ui.NewBillFragment">
+
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:id="@+id/descLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:text="@string/desc"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_desc"
+        android:inputType="text"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintBottom_toBottomOf="@+id/descLabel"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descLabel"
+        app:layout_constraintWidth_percent="0.78" />
+
+    <TextView
+        android:id="@+id/typeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:text="@string/type"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/descLabel" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_type"
+        style="@style/common_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:popupTheme="@style/common_spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/typeLabel"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/typeLabel"
+        app:layout_constraintWidth_percent="0.78"
+        app:theme="@style/common_spinner" />
+
+    <TextView
+        android:id="@+id/amountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:text="@string/amount"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/typeLabel" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_amount"
+        android:inputType="numberDecimal"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintBottom_toBottomOf="@+id/amountLabel"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/amountLabel"
+        app:layout_constraintWidth_percent="0.78" />
+
+    <TextView
+        android:id="@+id/payTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:text="@string/payType"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fourteen_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/amountLabel" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/sp_pay_type"
+        style="@style/common_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:popupTheme="@style/common_spinner"
+        app:layout_constraintBottom_toBottomOf="@+id/payTypeLabel"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/payTypeLabel"
+        app:layout_constraintWidth_percent="0.78"
+        app:theme="@style/common_spinner" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/add"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@+id/h_guideline" />
+</androidx.constraintlayout.widget.ConstraintLayout>
