@@ -59,25 +59,21 @@
             app:destination="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <navigation
-        android:id="@+id/nav_user"
-        app:startDestination="@id/loginFragment">
-        <fragment
-            android:id="@+id/loginFragment"
-            android:name="com.android.book.ui.LoginFragment"
-            android:label="login_fragment"
-            tools:layout="@layout/login_fragment">
-            <action
-                android:id="@+id/action_loginFragment_to_regisiterFragment"
-                app:destination="@id/regisiterFragment" />
-        </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.android.book.ui.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_regisiterFragment"
+            app:destination="@id/regisiterFragment" />
+    </fragment>
 
-        <fragment
-            android:id="@+id/regisiterFragment"
-            android:name="com.android.book.ui.RegisiterFragment"
-            android:label="regisiter_fragment"
-            tools:layout="@layout/regisiter_fragment" />
-    </navigation>
+    <fragment
+        android:id="@+id/regisiterFragment"
+        android:name="com.android.book.ui.RegisiterFragment"
+        android:label="regisiter_fragment"
+        tools:layout="@layout/regisiter_fragment" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.android.book.ui.SettingFragment"
