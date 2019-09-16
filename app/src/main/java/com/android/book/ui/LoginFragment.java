@@ -18,12 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
@@ -48,6 +50,8 @@ public class LoginFragment extends Fragment {
     UserViewModel userViewModel;
     AccountManager accountManager;
 
+    private OnBackPressedCallback backPressedCallback;
+
     private LoginViewModel mViewModel;
 
     public static LoginFragment newInstance() {
@@ -58,6 +62,13 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
+
+        backPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        };
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.action_sign_in));
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -65,8 +76,10 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                finish();
+                requireActivity().onBackPressed();
             }
         });
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, backPressedCallback);
         mEmailView = view.findViewById(R.id.email);
         mPasswordView = view.findViewById(R.id.password);
         mEmailSignInButton = view.findViewById(R.id.email_sign_in_button);
@@ -107,6 +120,7 @@ public class LoginFragment extends Fragment {
         mRegisiter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_regisiterFragment);
 //                Intent intent = new Intent(requireActivity(), RegisiterActivity.class);
 //                startActivity(intent);
             }

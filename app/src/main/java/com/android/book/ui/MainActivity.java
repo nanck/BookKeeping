@@ -3,6 +3,7 @@ package com.android.book.ui;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,18 +29,17 @@ public class MainActivity extends AppCompatActivity {
         navBottom = findViewById(R.id.nav_bottom);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navBottom, navController);
-
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                
+                Log.d(TAG, "onDestinationChanged: " + destination.getLabel());
+                if (destination.getId() == R.id.homeFragment || destination.getId() == R.id.billFragment || destination.getId() == R.id.myFragment) {
+                    navBottom.setVisibility(View.VISIBLE);
+                } else {
+                    navBottom.setVisibility(View.GONE);
+                }
             }
         });
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return navController.navigateUp();
     }
 
     @Override
@@ -55,5 +55,12 @@ public class MainActivity extends AppCompatActivity {
         int selectItemId = savedInstanceState.getInt(CURRENT_FRAGMENT);
         Log.d(TAG, "selectItemId: " + selectItemId);
         navBottom.setSelectedItemId(selectItemId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (navController != null && !navController.popBackStack()) {
+            super.onBackPressed();
+        }
     }
 }
