@@ -1,8 +1,8 @@
 package com.android.book.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import com.android.book.AppExecutors;
 import com.android.book.data.DataRepository;
 import com.android.book.data.db.entity.Bill;

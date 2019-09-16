@@ -1,76 +1,51 @@
 package com.android.book.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.android.book.R;
-import com.android.book.ui.fragment.BillFragment;
-import com.android.book.ui.fragment.HomeFragment;
-import com.android.book.ui.fragment.MyFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String CURRENT_FRAGMENT = "currentFragment";
     private static final String TAG = "ssx";
-    private BottomNavigationView nav_bottom;
-    HomeFragment homeFragment = new HomeFragment();
+    private BottomNavigationView navBottom;
+    public NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        nav_bottom = findViewById(R.id.nav_bottom);
-        nav_bottom.setOnNavigationItemSelectedListener(new BottomNavigationItemSelectedListener());
-        if (savedInstanceState != null) {
-            int selectItemId = savedInstanceState.getInt(CURRENT_FRAGMENT);
-            Log.d(TAG, "selectItemId: " + selectItemId);
-            nav_bottom.setSelectedItemId(selectItemId);
-        } else {
-            Log.d(TAG, "new fragment: ");
-            showAndHideFragment(homeFragment);
-        }
-    }
+        navBottom = findViewById(R.id.nav_bottom);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(navBottom, navController);
 
-    private class BottomNavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_home:
-                    showAndHideFragment(homeFragment);
-                    return true;
-                case R.id.action_bill:
-                    BillFragment billFragment = BillFragment.newInstance("", "");
-                    showAndHideFragment(billFragment);
-                    return true;
-                case R.id.action_my:
-                    MyFragment myFragment = MyFragment.newInstance("", "");
-                    showAndHideFragment(myFragment);
-                    return true;
-                default:
-                    return false;
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                
             }
-        }
+        });
     }
 
-    protected void showAndHideFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fl_content, fragment);
-        transaction.commit();
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        Log.d(TAG, "selectItemId: " + nav_bottom.getSelectedItemId());
-        outState.putInt("currentFragment", nav_bottom.getSelectedItemId());
+        Log.d(TAG, "selectItemId: " + navBottom.getSelectedItemId());
+        outState.putInt("currentFragment", navBottom.getSelectedItemId());
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
@@ -79,6 +54,6 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         int selectItemId = savedInstanceState.getInt(CURRENT_FRAGMENT);
         Log.d(TAG, "selectItemId: " + selectItemId);
-        nav_bottom.setSelectedItemId(selectItemId);
+        navBottom.setSelectedItemId(selectItemId);
     }
 }

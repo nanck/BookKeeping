@@ -1,19 +1,19 @@
 package com.android.book.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.model.GloabalUtils;
-import com.android.book.ui.model.RouteManager;
-import com.android.book.ui.model.Status;
 import com.android.book.ui.widget.CustomTextView;
 
 /**
@@ -29,10 +29,7 @@ public class MyFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
-
     private TextView tv_username;
-    private Status userStatus = new RouteManager.LogoutStatus();
-
 
     public MyFragment() {
         // Required empty public constructor
@@ -66,11 +63,11 @@ public class MyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my, container, false);
+        final View view = inflater.inflate(R.layout.fragment_my, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.nav_my));
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
 
         tv_username = view.findViewById(R.id.tv_username);
         CustomTextView ctv_setting = view.findViewById(R.id.ctv_setting);
@@ -79,18 +76,18 @@ public class MyFragment extends Fragment {
         CustomTextView ctv_delete = view.findViewById(R.id.ctv_delete);
         CustomTextView ctv_about = view.findViewById(R.id.ctv_about);
 
-        userStatus = RouteManager.getInstance().getUserStatus();
 
         tv_username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userStatus.lookBasicInfo(getActivity());
+                Navigation.findNavController(view).navigate(R.id.action_global_loginFragment);
+
             }
         });
         ctv_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userStatus.doSetting(getActivity());
+                Navigation.findNavController(view).navigate(R.id.action_myFragment_to_settingFragment);
             }
         });
 
@@ -98,7 +95,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tv_username.setText(getString(R.string.hint_tologin));
-                RouteManager.getInstance().setUserStatus(new RouteManager.LogoutStatus());
+                Navigation.findNavController(view).navigate(R.id.action_global_loginFragment);
                 GloabalUtils.clear();
             }
         });
@@ -107,21 +104,21 @@ public class MyFragment extends Fragment {
         ctv_basic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userStatus.lookBasicInfo(getActivity());
+                Navigation.findNavController(view).navigate(R.id.action_myFragment_to_basicInfoFragment);
             }
         });
 
         ctv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userStatus.deleteUser(getActivity());
+                // TODO: 2019-09-12  
             }
         });
 
         ctv_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userStatus.about(getActivity());
+                // TODO: 2019-09-12  
             }
         });
         return view;
@@ -129,7 +126,6 @@ public class MyFragment extends Fragment {
 
     @Override
     public void onResume() {
-        userStatus = RouteManager.getInstance().getUserStatus();
         UserInfo user = GloabalUtils.getUser();
         String userNme = "";
         if (user != null) {

@@ -3,33 +3,37 @@ package com.android.book.ui;
 import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
 import com.android.book.ui.model.GloabalUtils;
-import com.android.book.ui.model.RouteManager;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.UserViewModel;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
-/**
- * A login screen that offers login via phone/password.
- */
-public class LoginActivity extends AppCompatActivity {
+public class LoginFragment extends Fragment {
     private static final String TAG = "ssx";
     private UserLoginTask mAuthTask = null;
     // UI references.
@@ -37,31 +41,51 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mEmailSignInButton;
+    private AppCompatTextView mRegisiter;
+    private AppCompatTextView mForget;
 
     UserViewModel userViewModel;
     AccountManager accountManager;
 
+    private LoginViewModel mViewModel;
+
+    public static LoginFragment newInstance() {
+        return new LoginFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.action_sign_in));
-        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
             }
         });
+        mEmailView = view.findViewById(R.id.email);
+        mPasswordView = view.findViewById(R.id.password);
+        mEmailSignInButton = view.findViewById(R.id.email_sign_in_button);
+        mLoginFormView = view.findViewById(R.id.login_form);
+        mProgressView = view.findViewById(R.id.login_progress);
+        mRegisiter = view.findViewById(R.id.tv_regisiter);
+        mForget = view.findViewById(R.id.tv_forget);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        accountManager = AccountManager.get(this);
+        accountManager = AccountManager.get(requireContext());
 
-        mEmailView = findViewById(R.id.email);
-        populateAutoComplete();
 
-        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -73,26 +97,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-        findViewById(R.id.tv_regisiter).setOnClickListener(new OnClickListener() {
+        mRegisiter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisiterActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(requireActivity(), RegisiterActivity.class);
+//                startActivity(intent);
             }
         });
 
-        findViewById(R.id.tv_forget).setOnClickListener(new OnClickListener() {
+        mForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -121,7 +141,6 @@ public class LoginActivity extends AppCompatActivity {
 
         boolean cancel = false;
         View focusView = null;
-
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !Util.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -143,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             showProgress(true);
-            mAuthTask = new UserLoginTask(this, phone, password);
+            mAuthTask = new UserLoginTask(phone, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -175,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(LoginActivity.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -188,14 +207,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, UserInfo> {
 
-        private final WeakReference<LoginActivity> mLonginActivity;
         private final String mEmail;
         private final String mPassword;
 
-        UserLoginTask(LoginActivity loginActivity, String email, String password) {
+        UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
-            mLonginActivity = new WeakReference<>(loginActivity);
         }
 
         @Override
@@ -210,9 +227,8 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
             if (userInfo != null) {
-                RouteManager.getInstance().setUserStatus(new RouteManager.LoginStatus());
                 GloabalUtils.saveUser(userInfo);
-                finish();
+//                finish();
             } else {
                 mEmailView.setError(getString(R.string.error_incorrect_password));
                 mEmailView.requestFocus();
@@ -225,5 +241,5 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
         }
     }
-}
 
+}

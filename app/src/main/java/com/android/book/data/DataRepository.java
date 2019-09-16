@@ -1,8 +1,8 @@
 package com.android.book.data;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import com.android.book.AppExecutors;
 import com.android.book.data.db.AppDataBase;
 import com.android.book.data.db.dao.BillDao;

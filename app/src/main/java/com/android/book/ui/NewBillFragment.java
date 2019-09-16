@@ -1,19 +1,24 @@
 package com.android.book.ui;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.Bill;
 import com.android.book.data.db.entity.PayType;
@@ -31,16 +36,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class NewBillActivity extends AppCompatActivity {
-    private static final String TAG = NewBillActivity.class.getSimpleName();
+public class NewBillFragment extends Fragment {
+
+    private NewBillViewModel mViewModel;
+
+
+    private static final String TAG = NewBillFragment.class.getSimpleName();
 
     private AppCompatEditText et_desc, et_amount;
 
     private AppCompatSpinner spinner_type, sp_pay_type;
     private AppCompatButton btn_finish;
 
-    TypesViewModel typesViewModel;
-    BillViewModel billViewModel;
+    private TypesViewModel typesViewModel;
+    private BillViewModel billViewModel;
     private List<Type> mTpyes = new ArrayList<>();
 
     private List<PayType> mPayTypes = new ArrayList<>();
@@ -48,30 +57,41 @@ public class NewBillActivity extends AppCompatActivity {
     private Type mCurrType;
     private PayType mCurrPayType;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_bill);
+    public static NewBillFragment newInstance() {
+        return new NewBillFragment();
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.new_bill_fragment, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.addbill));
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
             }
         });
 
-        et_amount = findViewById(R.id.et_amount);
-        et_desc = findViewById(R.id.et_desc);
-        spinner_type = findViewById(R.id.spinner_type);
-        sp_pay_type = findViewById(R.id.sp_pay_type);
-        btn_finish = findViewById(R.id.btn_finish);
+        et_amount = view.findViewById(R.id.et_amount);
+        et_desc = view.findViewById(R.id.et_desc);
+        spinner_type = view.findViewById(R.id.spinner_type);
+        sp_pay_type = view.findViewById(R.id.sp_pay_type);
+        btn_finish = view.findViewById(R.id.btn_finish);
+        return view;
+    }
 
-        final TypeSpinnerAdapter typeAdapter = new TypeSpinnerAdapter(this);
-        final PayTypeSpinnerAdapter payTypeAdapter = new PayTypeSpinnerAdapter(this);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(NewBillViewModel.class);
+
+
+        final TypeSpinnerAdapter typeAdapter = new TypeSpinnerAdapter(requireContext());
+        final PayTypeSpinnerAdapter payTypeAdapter = new PayTypeSpinnerAdapter(requireContext());
 
         typesViewModel = ViewModelProviders.of(this).get(TypesViewModel.class);
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
@@ -130,19 +150,19 @@ public class NewBillActivity extends AppCompatActivity {
                 String desc = et_desc.getText().toString();
                 String amount = et_amount.getText().toString();
                 if (TextUtils.isEmpty(desc)) {
-                    Toast.makeText(NewBillActivity.this, "请输入消费描述", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "请输入消费描述", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (mCurrType == null) {
-                    Toast.makeText(NewBillActivity.this, "请选择类型", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "请选择类型", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(amount)) {
-                    Toast.makeText(NewBillActivity.this, "请填写消费金额", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "请填写消费金额", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (mCurrPayType == null) {
-                    Toast.makeText(NewBillActivity.this, "请选择支付渠道", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "请选择支付渠道", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Bill bill = new Bill();
@@ -159,8 +179,9 @@ public class NewBillActivity extends AppCompatActivity {
                 bill.setShoppingType(mCurrType.getValue());
                 bill.setAddTtime(Util.formatDate(new Date()));
                 billViewModel.addBill(bill);
-                finish();
+//                finish();
             }
         });
     }
+
 }

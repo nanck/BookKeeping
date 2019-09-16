@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.android.book.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_newBillFragment"
+            app:destination="@id/newBillFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.android.book.ui.fragment.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
+
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.android.book.ui.fragment.MyFragment"
+        android:label="fragment_my"
+        tools:layout="@layout/fragment_my">
+        <action
+            android:id="@+id/action_myFragment_to_basicInfoFragment"
+            app:destination="@id/basicInfoFragment" />
+        <action
+            android:id="@+id/action_myFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.android.book.ui.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/basicInfoFragment"
+        android:name="com.android.book.ui.BasicInfoFragment"
+        android:label="basic_info_fragment"
+        tools:layout="@layout/basic_info_fragment" />
+    <fragment
+        android:id="@+id/newBillFragment"
+        android:name="com.android.book.ui.NewBillFragment"
+        android:label="new_bill_fragment"
+        tools:layout="@layout/new_bill_fragment">
+        <action
+            android:id="@+id/action_newBillFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <navigation
+        android:id="@+id/nav_user"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.android.book.ui.LoginFragment"
+            android:label="login_fragment"
+            tools:layout="@layout/login_fragment">
+            <action
+                android:id="@+id/action_loginFragment_to_regisiterFragment"
+                app:destination="@id/regisiterFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/regisiterFragment"
+            android:name="com.android.book.ui.RegisiterFragment"
+            android:label="regisiter_fragment"
+            tools:layout="@layout/regisiter_fragment" />
+    </navigation>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.android.book.ui.SettingFragment"
+        android:label="setting_fragment"
+        tools:layout="@layout/setting_fragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
+</navigation>

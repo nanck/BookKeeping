@@ -53,4 +53,5 @@
     <string name="basic">基本信息</string>
     <string name="deleteuser">注销用户</string>
     <string name="about">关于</string>
+    <string name="appname">Bookkeeping</string>
 </resources>

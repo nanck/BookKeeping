@@ -2,52 +2,85 @@ package com.android.book.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.android.book.R;
 import com.android.book.data.db.entity.UserInfo;
 import com.android.book.utilitles.Util;
 import com.android.book.viewmodel.UserViewModel;
 
-public class RegisiterActivity extends AppCompatActivity {
+public class RegisiterFragment extends Fragment {
     private static final String TAG = "ssx";
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView, mConfirmPassword, mPhoneView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mRegist;
+
     private UserRegistTask mRegistTask = null;
     private UserViewModel userViewModel;
+    private RegisiterViewModel mViewModel;
+
+    public static RegisiterFragment newInstance() {
+        return new RegisiterFragment();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regisiter);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.regisiter_fragment, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.action_regist));
-        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
             }
         });
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mEmailView = view.findViewById(R.id.email);
+        mPasswordView = view.findViewById(R.id.password);
+        mConfirmPassword = view.findViewById(R.id.confirm_password);
+        mPhoneView = view.findViewById(R.id.phone);
+        mRegist = view.findViewById(R.id.email_regist_button);
 
-        mEmailView = findViewById(R.id.email);
-        mPasswordView = findViewById(R.id.password);
-        mConfirmPassword = findViewById(R.id.confirm_password);
-        mPhoneView = findViewById(R.id.phone);
+        mLoginFormView = view.findViewById(R.id.login_form);
+        mProgressView = view.findViewById(R.id.login_progress);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(RegisiterViewModel.class);
+
+        mRegist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegist();
+            }
+        });
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -59,17 +92,8 @@ public class RegisiterActivity extends AppCompatActivity {
             }
         });
 
-        Button mRegist = findViewById(R.id.email_regist_button);
-        mRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptRegist();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
+
 
     private void attemptRegist() {
         if (mRegistTask != null) {
@@ -182,10 +206,10 @@ public class RegisiterActivity extends AppCompatActivity {
             mRegistTask = null;
             showProgress(false);
             if (success) {
-                Toast.makeText(RegisiterActivity.this, getString(R.string.regist_success), Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(requireActivity(), getString(R.string.regist_success), Toast.LENGTH_SHORT).show();
+//                finish();
             } else {
-                Toast.makeText(RegisiterActivity.this, getString(R.string.user_existed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), getString(R.string.user_existed), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -195,4 +219,5 @@ public class RegisiterActivity extends AppCompatActivity {
             showProgress(false);
         }
     }
+
 }
